@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Database Managment</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="text-center">Employee Data Managment</h1>
+            <h2 class="text-center"> A Comprehensive Directory of Employee Billable Hours</h2>
+        </div>
+        <div class="row">
+
+            <div class="card-header">
+                Current Employee
+            </div>
+
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th id="name-display" scope="col">Employee Name</th>
+                        <th id="role-display" scope="col">Role</th>
+                        <th id="role-display" scope="col">Start Date</th>
+                        <th id="month-display" scope="col">Months Worked</th>
+                        <th id="rate-display" scope="col">Monthly Rate ($)</th>
+                        <th id="bill-display" scope="col">Total Billed ($)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="record">
+
+                        <!-- <th scope="row">1</th> -->
+                        <!-- <td id="name-display">Mark</td>
+                        <td id="role-display">Otto</td>
+                        <td id="role-display">@mdo</td>
+                        <td id="month-display">placeholder</td>
+                        <td id="rate-display">@mdo</td>
+                        <td id="bill-display">placeholder</td> -->
+
+                    </tr>
+                </tbody>
+            </table>
+
+            <!--FOrm-->
+
+            <!-- Sign-up Form (note the various input "types")-->
+            <div class="card">
+                <div class="card-header">
+                    Add Employee
+                </div>
+            </div>
+            <div class="card-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="name-input">Employee Name:</label>
+                        <input class="form-control" id="name-input" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="role-input">Role</label>
+                        <input class="form-control" id="role-input" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="date-input">Start Date (MM/DD/YYYY)</label>
+                        <input class="form-control" id="date-input" type="date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rate-input">Monthly Rate</label>
+                        <input class="form-control" id="rate-input" type="text">
+                    </div>
+
+
+                    <button class="btn btn-default" id="add-user" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery.js"></script>
+
+        <!-- LINKS FOR FIREBASE GO HERE -->
+        <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
+        <!-- Script -->
+        <script>
+            //  START CODING BELOW!!
+
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyC4JprDPRUD5bzilsxgbR31Lvbm3sEoYj4",
+                authDomain: "timesheet-1015.firebaseapp.com",
+                databaseURL: "https://timesheet-1015.firebaseio.com",
+                projectId: "timesheet-1015",
+                storageBucket: "timesheet-1015.appspot.com",
+                messagingSenderId: "93052197749",
+                appId: "1:93052197749:web:0cf47ed2606550de1cd13c",
+                measurementId: "G-ED4H3FXG5D"
+            };
+
+            firebase.initializeApp(config);
+
+            // Create a variable to reference the database
+            var database = firebase.database();
+
+            //intialize variables 
+            var name = "";
+            var role = "";
+            var startDate = "";
+            var months = "";
+            var monthlyRate = "";
+            var totalBilled = "";
+
+            // When changes occurs it will print them to console and html
+
+
+            // Capture Button Click
+            $("#add-user").on("click", function (event) {
+                // Don't refresh the page!
+                event.preventDefault();
+                // YOUR TASK!!!
+                // Code in the logic for storing and retrieving the most recent user.
+                name = $("#name-input").val().trim();
+                role = $("#role-input").val().trim();
+                startDate = $("#date-input").val().trim();
+                monthlyRate = $("#rate-input").val().trim();
+                //months =
+                // totalBilled = parseInt($("#rate-input").val().trim()) * months;
+
+                // Don't forget to provide initial data to your Firebase database.
+
+
+                database.ref().push({
+                    //if the object is the same as the variabe can be set as name, 
+                    name: name,
+                    role: role,
+                    startDate: startDate,
+                    monthlyRate: monthlyRate,
+                    dateAdded: firebase.database.ServerValue.TIMESTAMP
+                });
+
+            });
+
+
+            // Firebase watcher .on("child_added"
+            database.ref().on("child_added", function (childSnapshot) {
+
+                // Print the initial data to the console.
+                console.log(childSnapshot.val());
+                // Log the value of the various properties
+                console.log(childSnapshot.val().name);
+                console.log(childSnapshot.val().role);
+                console.log(childSnapshot.val().age);
+                console.log(childSnapshot.val().comment);
+
+                // Change the HTML
+                $("#name-display").text(childSnapshot.val().name);
+                $("#name-display").text(childSnapshot.val().role);
+                $("#date-display").text(childSnapshot.val().startDate);
+                $("#rate-display").text(childSnapshot.val().monthlyRate);
+
+                //full list of item to the well
+                // $("#record").append("<td>childSnapshot.val().name);
+
+                // var row = $("<tr>");
+
+                // row.append("<td>" + childSnapshot.val().name + "</td>");
+                // row.append("<td>" + childSnapshot.val().role + "</td>");
+                // row.append("<td>" + childSnapshot.val().startDate + "</td>");
+                // $("#record").append(row);
+
+                $("#record").append("<span class='name-display'> " +
+                    childSnapshot.val().name +
+                    " </span><span class='role-display'> " + childSnapshot.val().role +
+                    " </span><span class='date-display'> " + childSnapshot.val().startDate +
+                    " </span><span class='rate-display'> " + childSnapshot.val().monthlyRate +
+                    " </span>");
+
+
+
+                // If any errors are experienced, log them to console.
+            }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+            });
+
+    // Create Error Handling
+
+        </script>
+
+</body>
+
+</html>
