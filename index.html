@@ -28,26 +28,26 @@
 
                 <thead>
                     <tr>
-                        <th id="name-display" scope="col">Employee Name</th>
-                        <th id="role-display" scope="col">Role</th>
-                        <th id="role-display" scope="col">Start Date</th>
-                        <th id="month-display" scope="col">Months Worked</th>
-                        <th id="rate-display" scope="col">Monthly Rate ($)</th>
-                        <th id="bill-display" scope="col">Total Billed ($)</th>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">Months Worked</th>
+                        <th scope="col">Monthly Rate ($)</th>
+                        <th scope="col">Total Billed ($)</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr id="record">
+                <tbody id="record">
 
-                        <!-- <th scope="row">1</th> -->
-                        <!-- <td id="name-display">Mark</td>
+
+                    <!-- <th scope="row">1</th> -->
+                    <!-- <td id="name-display">Mark</td>
                         <td id="role-display">Otto</td>
                         <td id="role-display">@mdo</td>
                         <td id="month-display">placeholder</td>
                         <td id="rate-display">@mdo</td>
                         <td id="bill-display">placeholder</td> -->
 
-                    </tr>
+
                 </tbody>
             </table>
 
@@ -173,19 +173,19 @@
                 //full list of item to the well
                 // $("#record").append("<td>childSnapshot.val().name);
 
-                // var row = $("<tr>");
+                var row = $("<tr>");
 
-                // row.append("<td>" + childSnapshot.val().name + "</td>");
-                // row.append("<td>" + childSnapshot.val().role + "</td>");
-                // row.append("<td>" + childSnapshot.val().startDate + "</td>");
-                // $("#record").append(row);
+                row.append("<td>" + childSnapshot.val().name + "</td>");
+                row.append("<td>" + childSnapshot.val().role + "</td>");
+                row.append("<td>" + childSnapshot.val().startDate + "</td>");
+                $("#record").append(row);
 
-                $("#record").append("<span class='name-display'> " +
-                    childSnapshot.val().name +
-                    " </span><span class='role-display'> " + childSnapshot.val().role +
-                    " </span><span class='date-display'> " + childSnapshot.val().startDate +
-                    " </span><span class='rate-display'> " + childSnapshot.val().monthlyRate +
-                    " </span>");
+                // $("#record").append("<span class='name-display'> " +
+                //     childSnapshot.val().name +
+                //     " </span><span class='role-display'> " + childSnapshot.val().role +
+                //     " </span><span class='date-display'> " + childSnapshot.val().startDate +
+                //     " </span><span class='rate-display'> " + childSnapshot.val().monthlyRate +
+                //     " </span>");
 
 
 
