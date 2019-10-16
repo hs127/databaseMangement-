@@ -171,24 +171,16 @@
                 $("#rate-display").text(childSnapshot.val().monthlyRate);
 
                 //full list of item to the well
-                // $("#record").append("<td>childSnapshot.val().name);
 
                 var row = $("<tr>");
 
                 row.append("<td>" + childSnapshot.val().name + "</td>");
                 row.append("<td>" + childSnapshot.val().role + "</td>");
                 row.append("<td>" + childSnapshot.val().startDate + "</td>");
+                row.append("<td>" + childSnapshot.val().months + "</td>");
+                row.append("<td>" + childSnapshot.val().monthlyRate + "</td>");
+                row.append("<td>" + childSnapshot.val().totalBilled + "</td>");
                 $("#record").append(row);
-
-                // $("#record").append("<span class='name-display'> " +
-                //     childSnapshot.val().name +
-                //     " </span><span class='role-display'> " + childSnapshot.val().role +
-                //     " </span><span class='date-display'> " + childSnapshot.val().startDate +
-                //     " </span><span class='rate-display'> " + childSnapshot.val().monthlyRate +
-                //     " </span>");
-
-
-
                 // If any errors are experienced, log them to console.
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
